@@ -1,0 +1,163 @@
+UTILITY C:
+
+// Controllo prefisso (strncmp è più sicuro di strstr per "inizia con")
+if (strstr(entry->d_name, prefisso) != entry->d_name) {
+    continue; // Salta se il prefisso non è all'inizio
+}
+
+// Controllo estensione .txt
+if (strlen(entry->d_name) < 5 || strcmp(entry->d_name + strlen(entry->d_name) - 4, ".txt") != 0) {
+                                continue;
+}
+---------------------------------------
+//invio fino al primo livello(prima subdirectory) lato SERVER
+
+                while((nread = RECV_STRING_STREAM(connfd, direttorio)) > 0) {
+                    printf("Richiesto direttorio: %s\n", direttorio);
+                    
+                    dir = opendir(direttorio);
+                    if (dir == NULL) {
+                        file_size = -1;
+                        SEND_LONG(connfd, file_size);
+                        printf("Direttorio non trovato\n");
+                    } else {
+                        /* CICLO PRINCIPALE */
+                        while ((entry = readdir(dir)) != NULL) {
+                            
+                            /* CASO FILE (Livello 1) */
+                            if (entry->d_type == DT_REG) {
+                                strcpy(nome_file, entry->d_name);
+                                sprintf(buff, "%s/%s", direttorio, nome_file);
+                                
+                                if((fd = open(buff, O_RDONLY)) >= 0) {
+                                    file_size = (long)lseek(fd, 0, SEEK_END);
+                                    lseek(fd, 0, SEEK_SET);
+                                    
+                                    SEND_LONG(connfd, file_size);
+                                    SEND_STRING(connfd, nome_file);
+                                    
+                                    cont = 0; flag = 0;
+                                    while (cont < file_size && flag == 0) {
+                                        bytes_to_read = (file_size - cont < DIM_BUFF) ? (file_size - cont) : DIM_BUFF;
+                                        nread = read(fd, buff, bytes_to_read);
+                                        if (nread > 0) {
+                                            write(connfd, buff, nread);
+                                            cont += nread;
+                                        } else flag = 1;
+                                    }
+                                    close(fd);
+                                }
+                            }
+                            /* CASO DIRECTORY (Livello 1 -> Entro nel Livello 2) */
+                            else if(entry->d_type == DT_DIR) {
+                                /* Importante: saltare . e .. */
+                                if(strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0){
+                                    
+                                    sprintf(subdir_path, "%s/%s", direttorio, entry->d_name);
+                                    subDir = opendir(subdir_path);
+                                    
+                                    if (subDir != NULL) {
+                                        /* Uso subEntry per non sovrascrivere entry del ciclo esterno */
+                                        while ((subEntry = readdir(subDir)) != NULL) {
+                                            if (subEntry->d_type == DT_REG) {
+                                                strcpy(nome_file, subEntry->d_name);
+                                                sprintf(buff, "%s/%s", subdir_path, nome_file);
+                                                
+                                                if((fd = open(buff, O_RDONLY)) >= 0) {
+                                                    file_size = (long)lseek(fd, 0, SEEK_END);
+                                                    lseek(fd, 0, SEEK_SET);
+                                                    
+                                                    SEND_LONG(connfd, file_size);
+                                                    SEND_STRING(connfd, nome_file);
+                                                    
+                                                    cont = 0; flag = 0;
+                                                    while (cont < file_size && flag == 0) {
+                                                        bytes_to_read = (file_size - cont < DIM_BUFF) ? (file_size - cont) : DIM_BUFF;
+                                                        nread = read(fd, buff, bytes_to_read);
+                                                        if (nread > 0) {
+                                                            write(connfd, buff, nread);
+                                                            cont += nread;
+                                                        } else flag = 1;
+                                                    }
+                                                    close(fd);
+                                                }
+                                            }
+                                        }
+                                        closedir(subDir); /* Corretto: closedir, non close */
+                                    }
+                                }
+                            }
+                        }
+                        closedir(dir);
+                        
+                        /* Terminazione invio */
+                        file_size = -1;
+                        SEND_LONG(connfd, file_size);
+                    }
+                }
+
+
+
+
+----------------------
+
+
+//controllo numero naturale
+nread = 0;
+while (argv[2][nread] != '\0') {
+    if ((argv[2][nread] < '0') || (argv[2][nread] > '9')) {
+        printf("Argomento non intero\n");
+        exit(EXIT_FAILURE);
+    }
+    nread++;
+}
+
+
+
+-----------------------------------
+
+TROVARE OCCORRENZE IN UN ARRAY 
+
+    i = 0;
+    while(i < TABELLA_DIM){
+       if(strcmp(tabella[i].id, "L") != 0) {
+            /* 1. Cerco se esiste un duplicato nella tabella */
+            duplicato_trovato = 0;
+            j = 0;
+            while(j < TABELLA_DIM && !duplicato_trovato){
+                if(i != j && strcmp(tabella[i].matricola, tabella[j].matricola) == 0){
+                    duplicato_trovato = 1;
+                }
+                j++;
+            }
+
+            /* 2. Se è un duplicato, controllo se l'ho già salvato in result */
+            if(duplicato_trovato){
+                gia_in_lista = 0;
+                k = 0;
+                /* Scorro solo finché ho elementi validi in result */
+                while(k < result.numero_prenotazioni_trovati && !gia_in_lista){
+                    if(strcmp(result.prenotazione[k].matricola, tabella[i].matricola) == 0  ){
+                        gia_in_lista = 1; /* Trovato! */
+                    }
+                    k++;
+                }
+
+                /* 3. Se non è già in lista, lo aggiungo */
+                if(gia_in_lista == 0){
+                    /* Controllo di sicurezza per non sforare l'array result */
+                    if(result.numero_prenotazioni_trovati < 5) { // O la dimensione max di OutputLista
+                        result.prenotazione[result.numero_prenotazioni_trovati] = tabella[i];
+                        result.numero_prenotazioni_trovati++;
+                    }
+                }
+            }
+        }
+        i++;
+
+    }
+
+//TO LOWER DI TUTTO
+#define TO_LOWER(c) ( ((c) >= 'A' && (c) <= 'Z') ? ((c) + 32) : (c) )
+
+UTILITY JAVA:

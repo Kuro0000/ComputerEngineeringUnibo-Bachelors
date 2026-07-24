@@ -1,0 +1,44 @@
+
+
+gcc -I /usr/include/tirpc RPC_client.c xfactor_clnt.c xfactor_xdr.c -o client -ltirpc
+gcc -I /usr/include/tirpc RPC_server.c xfactor_svc.c xfactor_xdr.c -o server -ltirpc
+rpcgen xfactor.x
+
+
+Setup Java 11 su Ubuntu 24
+
+Per impostare Java 11 come defaut: 
+
+ 1) nano ~/.bashrc (aprire/creare il file con un editor es. vim)
+
+ 2) export PATH=/usr/lib/jvm/java-11-openjdk-amd64/bin:$PATH (inserire la linea di import)
+
+ 3) Salvare e controllare che la versione di java sia giusta con il comando java --version
+
+
+COMPILAZIONE E ESECUZIONE
+RMI
+Lato server
+1. Compilazione interfaccia e implementazione parte server
+
+javac RemOp.java RMI_Server.java
+2. Generazione eseguibili Stub e Skeleton
+
+
+		rmic -vcompat RMI_Server
+
+SICUREZZA:
+
+Esempio di invocazione con la indicazione del file di policy
+
+
+• Client: java -Djava.security.policy=echo.policy RMI_Client
+• Server: java -Djava.security.policy=echo.policy RMI_Server
+
+
+
+
+
+
+
+

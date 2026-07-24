@@ -1,0 +1,7 @@
+1 ciao
+sono
+3 la riga
+dispari
+5 noteremo
+se funziona
+7 il processo

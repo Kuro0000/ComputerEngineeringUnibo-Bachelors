@@ -1,0 +1,116 @@
+[08:49:30.071][debug][en3.ContainerRunMojo] Resolved artifact and dependencies: [file:/home/andrea/.m2/repository/org/codehaus/cargo/cargo-core-container-tomcat/1.10.10/cargo-core-container-tomcat-1.10.10.jar]
+[08:49:30.071][info][en3.ContainerRunMojo] Resolved container artifact org.codehaus.cargo:cargo-core-container-tomcat:jar:1.10.10 for container tomcat9x
+[08:49:30.322][debug][talledLocalContainer] Parsed Tomcat version = [9.0.89]
+[08:49:30.323][info][talledLocalContainer] Tomcat 9.0.89 starting...
+[08:49:30.323][debug][ngLocalConfiguration] Setting property [cargo.java.home] = [/home/andrea/.sdkman/candidates/java/21.0.2-tem]
+[08:49:30.323][debug][ngLocalConfiguration] Searching properties for Resource definitions
+[08:49:30.323][debug][ngLocalConfiguration] Searching properties for DataSource definitions
+[08:49:30.323][debug][ngLocalConfiguration] Searching properties for User definition
+[08:49:30.324][info][stalledLocalDeployer] Undeploying context [MusixConnection] from [/home/andrea/tomcat9/webapps]...
+[08:49:30.324][info][stalledLocalDeployer] Trying to delete WAR from [/home/andrea/tomcat9/webapps/MusixConnection.war]...
+[08:49:30.325][info][stalledLocalDeployer] Trying to delete WAR from [/home/andrea/tomcat9/webapps/MusixConnection]...
+[08:49:30.327][info][stalledLocalDeployer] Deploying [/home/andrea/Documents/università/Triennio/IngegneriaDelSoftware/MusixConnection/target/MusixConnection.war] to [/home/andrea/tomcat9/webapps]...
+[08:49:30.330][debug][l.DefaultFileHandler] Directory [/home/andrea/tomcat9/webapps] exists
+[08:49:30.350][debug][talledLocalContainer] Port 8080 closed
+[08:49:30.492][debug][URLDeployableMonitor] Checking URL [http://localhost:8080/cargocpc/index.html] for status using a timeout of [120000] ms...
+[08:49:30.506][debug][URLDeployableMonitor] URL [http://localhost:8080/cargocpc/index.html] is not responding: -1 java.net.ConnectException: Connection refused
+[08:49:30.506][debug][URLDeployableMonitor] Notifying monitor listener [org.codehaus.cargo.container.spi.deployer.DeployerWatchdog@4a481728]
+[08:49:30.607][debug][URLDeployableMonitor] Checking URL [http://localhost:8080/cargocpc/index.html] for status using a timeout of [120000] ms...
+[08:49:30.608][debug][URLDeployableMonitor] URL [http://localhost:8080/cargocpc/index.html] is not responding: -1 java.net.ConnectException: Connection refused
+[08:49:30.608][debug][URLDeployableMonitor] Notifying monitor listener [org.codehaus.cargo.container.spi.deployer.DeployerWatchdog@4a481728]
+[08:49:30.703][info][talledLocalContainer] 24-Jun-2026 08:49:30.699 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.89
+[08:49:30.703][info][talledLocalContainer] 24-Jun-2026 08:49:30.703 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          May 3 2024 20:22:11 UTC
+[08:49:30.703][info][talledLocalContainer] 24-Jun-2026 08:49:30.703 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.89.0
+[08:49:30.703][info][talledLocalContainer] 24-Jun-2026 08:49:30.703 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+[08:49:30.703][info][talledLocalContainer] 24-Jun-2026 08:49:30.703 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            7.0.12-201.fc44.x86_64
+[08:49:30.703][info][talledLocalContainer] 24-Jun-2026 08:49:30.703 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+[08:49:30.703][info][talledLocalContainer] 24-Jun-2026 08:49:30.703 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /home/andrea/.sdkman/candidates/java/21.0.2-tem
+[08:49:30.703][info][talledLocalContainer] 24-Jun-2026 08:49:30.703 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           21.0.2+13-LTS
+[08:49:30.703][info][talledLocalContainer] 24-Jun-2026 08:49:30.703 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Eclipse Adoptium
+[08:49:30.703][info][talledLocalContainer] 24-Jun-2026 08:49:30.703 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/andrea/tomcat9
+[08:49:30.703][info][talledLocalContainer] 24-Jun-2026 08:49:30.703 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/andrea/tomcat9
+[08:49:30.708][debug][URLDeployableMonitor] Checking URL [http://localhost:8080/cargocpc/index.html] for status using a timeout of [120000] ms...
+[08:49:30.710][debug][URLDeployableMonitor] URL [http://localhost:8080/cargocpc/index.html] is not responding: -1 java.net.ConnectException: Connection refused
+[08:49:30.710][debug][URLDeployableMonitor] Notifying monitor listener [org.codehaus.cargo.container.spi.deployer.DeployerWatchdog@4a481728]
+[08:49:30.779][info][talledLocalContainer] 24-Jun-2026 08:49:30.779 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Xms128m
+[08:49:30.780][info][talledLocalContainer] 24-Jun-2026 08:49:30.779 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Xmx512m
+[08:49:30.780][info][talledLocalContainer] 24-Jun-2026 08:49:30.779 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/andrea/tomcat9
+[08:49:30.780][info][talledLocalContainer] 24-Jun-2026 08:49:30.779 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/andrea/tomcat9
+[08:49:30.780][info][talledLocalContainer] 24-Jun-2026 08:49:30.779 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/andrea/tomcat9/temp
+[08:49:30.780][info][talledLocalContainer] 24-Jun-2026 08:49:30.779 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+[08:49:30.780][info][talledLocalContainer] 24-Jun-2026 08:49:30.779 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/andrea/tomcat9/conf/logging.properties
+[08:49:30.781][info][talledLocalContainer] 24-Jun-2026 08:49:30.781 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib]
+[08:49:30.810][debug][URLDeployableMonitor] Checking URL [http://localhost:8080/cargocpc/index.html] for status using a timeout of [120000] ms...
+[08:49:30.811][debug][URLDeployableMonitor] URL [http://localhost:8080/cargocpc/index.html] is not responding: -1 java.net.ConnectException: Connection refused
+[08:49:30.811][debug][URLDeployableMonitor] Notifying monitor listener [org.codehaus.cargo.container.spi.deployer.DeployerWatchdog@4a481728]
+[08:49:30.912][debug][URLDeployableMonitor] Checking URL [http://localhost:8080/cargocpc/index.html] for status using a timeout of [120000] ms...
+[08:49:30.913][debug][URLDeployableMonitor] URL [http://localhost:8080/cargocpc/index.html] is not responding: -1 java.net.ConnectException: Connection refused
+[08:49:30.913][debug][URLDeployableMonitor] Notifying monitor listener [org.codehaus.cargo.container.spi.deployer.DeployerWatchdog@4a481728]
+[08:49:31.013][debug][URLDeployableMonitor] Checking URL [http://localhost:8080/cargocpc/index.html] for status using a timeout of [120000] ms...
+[08:49:31.015][debug][URLDeployableMonitor] URL [http://localhost:8080/cargocpc/index.html] is not responding: -1 java.net.ConnectException: Connection refused
+[08:49:31.015][debug][URLDeployableMonitor] Notifying monitor listener [org.codehaus.cargo.container.spi.deployer.DeployerWatchdog@4a481728]
+[08:49:31.109][info][talledLocalContainer] 24-Jun-2026 08:49:31.108 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+[08:49:31.115][debug][URLDeployableMonitor] Checking URL [http://localhost:8080/cargocpc/index.html] for status using a timeout of [120000] ms...
+[08:49:31.116][debug][URLDeployableMonitor] URL [http://localhost:8080/cargocpc/index.html] is not responding: -1 java.net.ConnectException: Connection refused
+[08:49:31.117][debug][URLDeployableMonitor] Notifying monitor listener [org.codehaus.cargo.container.spi.deployer.DeployerWatchdog@4a481728]
+[08:49:31.134][info][talledLocalContainer] 24-Jun-2026 08:49:31.134 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [593] milliseconds
+[08:49:31.176][info][talledLocalContainer] 24-Jun-2026 08:49:31.176 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+[08:49:31.177][info][talledLocalContainer] 24-Jun-2026 08:49:31.176 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.89]
+[08:49:31.195][info][talledLocalContainer] 24-Jun-2026 08:49:31.194 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/home/andrea/tomcat9/webapps/cargocpc.war]
+[08:49:31.211][info][talledLocalContainer] 24-Jun-2026 08:49:31.210 INFO [main] org.apache.catalina.startup.ExpandWar.expand An expanded directory [/home/andrea/tomcat9/webapps/cargocpc] was found with a last modified time that did not match the associated WAR. It will be deleted.
+[08:49:31.217][debug][URLDeployableMonitor] Checking URL [http://localhost:8080/cargocpc/index.html] for status using a timeout of [120000] ms...
+[08:49:31.411][info][talledLocalContainer] 24-Jun-2026 08:49:31.411 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/home/andrea/tomcat9/webapps/cargocpc.war] has finished in [216] ms
+[08:49:31.412][info][talledLocalContainer] 24-Jun-2026 08:49:31.412 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [/home/andrea/tomcat9/webapps/MusixConnection.war]
+[08:49:31.641][info][talledLocalContainer] 24-Jun-2026 08:49:31.640 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+[08:49:31.894][info][talledLocalContainer] [MusixConnection] Inizializzazione DB completata.
+[08:49:31.914][info][talledLocalContainer] 24-Jun-2026 08:49:31.913 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [/home/andrea/tomcat9/webapps/MusixConnection.war] has finished in [501] ms
+[08:49:31.914][info][talledLocalContainer] 24-Jun-2026 08:49:31.914 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/andrea/tomcat9/webapps/ROOT]
+[08:49:31.935][info][talledLocalContainer] 24-Jun-2026 08:49:31.935 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/andrea/tomcat9/webapps/ROOT] has finished in [21] ms
+[08:49:31.935][info][talledLocalContainer] 24-Jun-2026 08:49:31.935 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/andrea/tomcat9/webapps/docs]
+[08:49:31.959][info][talledLocalContainer] 24-Jun-2026 08:49:31.959 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/andrea/tomcat9/webapps/docs] has finished in [23] ms
+[08:49:31.960][info][talledLocalContainer] 24-Jun-2026 08:49:31.959 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/andrea/tomcat9/webapps/examples]
+[08:49:32.202][info][talledLocalContainer] 24-Jun-2026 08:49:32.201 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/andrea/tomcat9/webapps/examples] has finished in [242] ms
+[08:49:32.202][info][talledLocalContainer] 24-Jun-2026 08:49:32.202 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/andrea/tomcat9/webapps/host-manager]
+[08:49:32.237][info][talledLocalContainer] 24-Jun-2026 08:49:32.237 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/andrea/tomcat9/webapps/host-manager] has finished in [34] ms
+[08:49:32.237][info][talledLocalContainer] 24-Jun-2026 08:49:32.237 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/andrea/tomcat9/webapps/manager]
+[08:49:32.268][info][talledLocalContainer] 24-Jun-2026 08:49:32.267 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/andrea/tomcat9/webapps/manager] has finished in [30] ms
+[08:49:32.274][info][talledLocalContainer] 24-Jun-2026 08:49:32.274 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+[08:49:32.285][info][talledLocalContainer] 24-Jun-2026 08:49:32.285 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [1149] milliseconds
+[08:49:32.357][debug][URLDeployableMonitor] URL [http://localhost:8080/cargocpc/index.html] is responding...
+[08:49:32.357][debug][URLDeployableMonitor] Notifying monitor listener [org.codehaus.cargo.container.spi.deployer.DeployerWatchdog@4a481728]
+[08:49:32.357][info][talledLocalContainer] Tomcat 9.0.89 started on port [8080]
+[08:50:05.018][info][talledLocalContainer] 2026-06-24 08:50:05 LOGIN utente=pippo
+[11:00:05.530][info][talledLocalContainer] 2026-06-24 11:00:05 LOGIN utente=pippo
+[11:00:10.449][info][talledLocalContainer] 2026-06-24 11:00:10 NOMINA_INSEGNANTE assoc=4 iscritto=1 materia=Tromba
+[11:00:24.383][info][talledLocalContainer] 2026-06-24 11:00:24 LOGIN utente=pluto
+[11:00:28.501][info][talledLocalContainer] 2026-06-24 11:00:28 RICHIESTA_ISCRIZIONE utente=pluto assoc=4
+[11:00:32.608][info][talledLocalContainer] 2026-06-24 11:00:32 VALUTA_RICHIESTA assoc=4 utente=2 esito=ATTIVA
+[11:00:48.818][info][talledLocalContainer] 2026-06-24 11:00:48 MESSAGGIO assoc=4 mittente=pluto
+[11:01:05.108][info][talledLocalContainer] 2026-06-24 11:01:05 CONFERMA_PRESENZA utente=pluto evento=1
+[11:01:14.097][info][talledLocalContainer] 2026-06-24 11:01:14 AGGIUNTA_COMPETENZA utente=pluto valore=Flauto traverso
+[11:01:17.919][info][talledLocalContainer] 2026-06-24 11:01:17 AGGIUNTA_COMPETENZA utente=pluto valore=Waacking
+[11:19:52.661][info][talledLocalContainer] Tomcat 9.0.89 is stopping...
+[11:19:52.664][warn][cherLoggerRedirector] Error reading process stream: java.io.IOException: Stream closed
+[11:19:52.665][debug][talledLocalContainer] JVM shutdown in progress, ignoring exception trying to stop: java.lang.IllegalStateException: Shutdown in progress
+[11:19:52.665][debug][talledLocalContainer] Waiting for port 8080 to shutdown, deadline 1782292912665
+[11:19:52.671][debug][m.DefaultJvmLauncher] Failed changing the visibility of internal JDK process classes, required for force killing of the Java process Codehaus Cargo has created. You could add --add-opens to your JVM arguments to allow this. java.lang is not open to unnamed module @3cf8f55d
+[13:30:38.241][debug][talledLocalContainer] Port 8080 closed
+[13:30:38.242][debug][talledLocalContainer] Port 8080 is shutdown
+[13:30:38.438][info][talledLocalContainer] 24-Jun-2026 13:30:38.432 SEVERE [main] org.apache.catalina.startup.Catalina.stopServer Could not contact [localhost:8005] (base port [8005] and offset [0]). Tomcat may not be running.
+[13:30:38.439][info][talledLocalContainer] 24-Jun-2026 13:30:38.438 SEVERE [main] org.apache.catalina.startup.Catalina.stopServer Error stopping Catalina
+[13:30:38.439][info][talledLocalContainer] 	java.net.ConnectException: Connection refused
+[13:30:38.439][info][talledLocalContainer] 		at java.base/sun.nio.ch.Net.connect0(Native Method)
+[13:30:38.439][info][talledLocalContainer] 		at java.base/sun.nio.ch.Net.connect(Net.java:589)
+[13:30:38.439][info][talledLocalContainer] 		at java.base/sun.nio.ch.Net.connect(Net.java:578)
+[13:30:38.439][info][talledLocalContainer] 		at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583)
+[13:30:38.439][info][talledLocalContainer] 		at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+[13:30:38.439][info][talledLocalContainer] 		at java.base/java.net.Socket.connect(Socket.java:751)
+[13:30:38.439][info][talledLocalContainer] 		at java.base/java.net.Socket.connect(Socket.java:686)
+[13:30:38.439][info][talledLocalContainer] 		at java.base/java.net.Socket.<init>(Socket.java:555)
+[13:30:38.439][info][talledLocalContainer] 		at java.base/java.net.Socket.<init>(Socket.java:324)
+[13:30:38.439][info][talledLocalContainer] 		at org.apache.catalina.startup.Catalina.stopServer(Catalina.java:629)
+[13:30:38.439][info][talledLocalContainer] 		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+[13:30:38.439][info][talledLocalContainer] 		at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+[13:30:38.439][info][talledLocalContainer] 		at org.apache.catalina.startup.Bootstrap.stopServer(Bootstrap.java:393)
+[13:30:38.439][info][talledLocalContainer] 		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:478)
+[13:30:43.242][info][talledLocalContainer] Tomcat 9.0.89 is stopped

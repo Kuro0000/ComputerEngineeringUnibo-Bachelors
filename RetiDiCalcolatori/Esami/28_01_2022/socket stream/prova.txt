@@ -1,0 +1,4 @@
+ sono un file  in cui  deve  essere
+eliminato  la parola ,
+sono uno studente di ingegneria informatica 
+e  non so se  funziona

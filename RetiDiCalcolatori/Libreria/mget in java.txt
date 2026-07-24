@@ -1,0 +1,275 @@
+Client:
+/*
+cognome: Yang
+Nome: Andrea
+Matricola: 0001077398
+Compito: Client MGET
+*/
+import java.io.*;
+import java.net.*;
+
+public class Client {
+    public static void main(String[] args) {
+        // --- DICHIARAZIONE VARIABILI (Tutte in testa) ---
+        Socket socket = null;
+        DataInputStream inSock = null;
+        DataOutputStream outSock = null;
+        BufferedReader stdIn = null;
+        FileOutputStream outFile = null;
+        
+        String nomeDirettorio = null;
+        String relativePath = null;
+        String operazione = null;
+        String serverAddress = null;
+        
+        File dir = null;
+        File[] files = null;
+        File file = null;
+        
+        long dim = 0;
+        long cont = 0;
+        int dirEsiste = 0;
+        int i = 0;
+        int port = 0;
+        int bufferRead = 0;
+
+        // --- CODICE ---
+        if (args.length != 2) {
+            System.out.println("Usage: java Client <address> <port>");
+            System.exit(1);
+        }
+
+        try {
+            serverAddress = args[0];
+            port = Integer.parseInt(args[1]);
+            stdIn = new BufferedReader(new InputStreamReader(System.in));
+            
+            System.out.println("Client avviato.");
+
+            // Ciclo infinito come richiesto
+            while ((operazione = stdIn.readLine())!=null) {
+                System.out.print("\nInserire l'operazione (es. MGET) o CTRL+C per uscire: ");
+                ;
+
+                if (operazione != null) {
+                    // Connessione per ogni singola richiesta
+                    socket = new Socket(serverAddress, port);
+                    inSock = new DataInputStream(socket.getInputStream());
+                    outSock = new DataOutputStream(socket.getOutputStream());
+
+                    // --- INIZIO SNIPPET ---
+                    outSock.writeUTF(operazione);
+                    
+                    System.out.print("Inserire il nome del direttorio: ");
+                    nomeDirettorio = stdIn.readLine();
+                    
+                    // richiedo il direttorio desiderato
+                    outSock.writeUTF(nomeDirettorio);
+                    System.out.println("Richiesto direttorio: " + nomeDirettorio);
+                    
+                    // attendo e controllo se esiste nel lato server
+                    dirEsiste = inSock.readInt();
+                    
+                    if (dirEsiste != 0) {
+                        System.out.println("direttorio non esistente nel lato server");
+                        // Niente continue, uso else per saltare
+                    } else {
+                        dir = new File(nomeDirettorio);
+                        // creo localmente il direttorio richiesto
+                        
+                        if (dir.exists()) {
+                            files = dir.listFiles();
+                            if (files != null) {
+                                i = 0;
+                                while(i < files.length) {
+                                    files[i].delete();
+                                    i++;
+                                }
+                            }
+                        } else {
+                            dir.mkdir();
+                        }
+                        
+                        System.out.println("MGET - Direttorio: " + nomeDirettorio);
+                        
+                        while ((dim = inSock.readLong()) != -1) {
+                            System.out.println("Dimensione ricevuto: " + dim);
+                            relativePath = inSock.readUTF();
+                            
+                            file = new File(dir, relativePath);
+                            file.getParentFile().mkdirs();
+
+                            try {
+                                outFile = new FileOutputStream(file);
+                                cont = 0;
+                                // **RICEVI IL FILE**
+                                while (cont < dim && (bufferRead = inSock.read()) >= 0) {
+                                    outFile.write(bufferRead);
+                                    cont++;
+                                }
+                                outFile.flush();
+                                outFile.close();
+                                System.out.println(" File ricevuto: " + file.getName() + " " + cont + " bytes");
+                                
+                            } catch (Exception e) {
+                                System.out.println("Problemi nel salvataggio: ");
+                                e.printStackTrace();
+                            }
+                            // outFile chiuso nel try
+                        }
+                        System.out.println("Trasferimento directory completato");
+                    }
+                    // --- FINE SNIPPET ---
+                    
+                    socket.close();
+                } else {
+                    System.exit(0); // Uscita pulita su EOF
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Errore: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+
+
+SERVER:---------------------------------------
+
+
+
+
+
+
+/*
+cognome: Yang
+Nome: Andrea
+Matricola: 0001077398
+Compito: Server MGET
+*/
+import java.io.*;
+import java.net.*;
+
+public class Server {
+    public static void main(String[] args) {
+        // --- DICHIARAZIONE VARIABILI (Tutte in testa) ---
+        int port = 0;
+        ServerSocket serverSocket = null;
+        Socket clientSocket = null;
+        DataInputStream inSock = null;
+        DataOutputStream outSock = null;
+        
+        String operazione = null;
+        String nomeDirettorio = null;
+        String fileRelativePath = null;
+        
+        File dir = null;
+        File[] files = null;
+        FileInputStream inFile = null;
+        
+        long dim = 0;
+        long cont = 0;
+        int bufferWrite = 0;
+        int i = 0;
+
+        // --- CODICE ---
+        if (args.length != 1) {
+            System.out.println("Usage: java Server <port>");
+            System.exit(1);
+        }
+
+        try {
+            port = Integer.parseInt(args[0]);
+            serverSocket = new ServerSocket(port);
+            System.out.println("Server avviato sulla porta " + port);
+
+            // Ciclo infinito demone
+            while (true) {
+                System.out.println("\nIn attesa di richieste...");
+                clientSocket = null;
+                
+                try {
+                    clientSocket = serverSocket.accept();
+                    inSock = new DataInputStream(clientSocket.getInputStream());
+                    outSock = new DataOutputStream(clientSocket.getOutputStream());
+
+                    // Leggo l'operazione inviata dal client (es. "MGET")
+                    try {
+                        operazione = inSock.readUTF();
+                    } catch (EOFException e) {
+                        operazione = null;
+                    }
+
+                    if (operazione != null) {
+                        // --- INIZIO SNIPPET SERVER ---
+                        nomeDirettorio = inSock.readUTF();
+                        System.out.println("Richiesto direttorio: " + nomeDirettorio);
+
+                        dir = new File(nomeDirettorio);
+
+                        if (dir.exists() && dir.isDirectory()) {
+                            outSock.writeInt(0);
+                            System.out.println("Inviato conferma direttorio esistente: " + nomeDirettorio);
+
+                            files = dir.listFiles();
+                            // Controllo files != null
+                            if (files != null) {
+                                System.out.println("File totali nel direttorio: " + files.length);
+
+                                i = 0;
+                                while(i < files.length) {
+                                    if (files[i].isDirectory()) {
+                                        // continue non si può usare, non faccio nulla
+                                    } else {
+                                        dim = files[i].length();
+                                        outSock.writeLong(dim);
+                                        System.out.println("Inviata dimensione: " + dim);
+                                        
+                                        fileRelativePath = files[i].getName();
+                                        outSock.writeUTF(fileRelativePath);
+                                        System.out.println("Inviato nome file: " + files[i].getName() + " (" + dim + " bytes)");
+
+                                        cont = 0;
+                                        bufferWrite = -1;
+                                        try {
+                                            inFile = new FileInputStream(files[i]);
+                                            // byte per byte
+                                            while (cont < dim && (bufferWrite = inFile.read()) >= 0) {
+                                                outSock.write(bufferWrite);
+                                                cont++;
+                                            }
+                                            outSock.flush();
+                                            System.out.println("File trasferito: " + cont + " bytes");
+                                            inFile.close();
+                                        } catch (Exception e) {
+                                            System.out.println("Problemi nel trasferimento: ");
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    i++;
+                                }
+                            }
+                            
+                            outSock.writeLong(-1);
+                            System.out.println("inviato il fine dei file della directory");
+                            
+                        } else {
+                            outSock.writeInt(-1);
+                            System.out.println("non esiste la directory");
+                        }
+                        // --- FINE SNIPPET SERVER ---
+                    }
+
+                    clientSocket.close();
+
+                } catch (IOException e) {
+                    System.out.println("Errore comunicazione: " + e.getMessage());
+                    if (clientSocket != null) clientSocket.close();
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,101 @@
+RMI E SELECT
+02/04/2024:
+        RMI: metodo1: elimina linee in cui appare una certa parola
+            metodo2: listare i nomi di file di una certa directory
+        SELECT: metodo STREAM: trasferisco una directory remoto con i file che hanno un prefisso iniziale di massimo 4 caratteri
+                metodo UDP: conta righe in base se compare un tot volte l'occorrenza di un carattere
+
+--------------------
+12/02/2025:
+    RMI: metodo 1: eliminare tutte le occorrenze di una parola e restituire il numero di parole eliminate
+        metodo 2: listre i nomi di tutti i file di una directory che superano una certa soglia
+
+    SELECT: metodo STREAM: trasferimento di file di una directory fino al primolivello(subdirecotry)
+            metodo UDP: controllare la directory corrente del server e controllo se supera per ogni linea una soglia 
+                    e per i file che hanno almeno due numeri nel nome e contenuto un carattere alfabetico e numerico
+
+---------------------
+23/01/2019
+        RMI:metodo 1:eliminare una prenotazione di una struttura dati di macchine
+            metodo 2:visualizzazione di una lista di veicoli con filtro la tipologia e la categoria
+        SELECT: metodo STREAM:download foto dei veicoli richiesti
+                metodo UDP: aggiornamento di un elemento di una lista veicoli
+
+---------------------
+06_05_2019
+	RMI: metodo1: ricorsivamente(iterativa) si doveva visualizzare i nomi di tutti i file dei direttori e sottodirettori
+	    metodo2:enumerare solo le righe dispari e restituire il numero di righe enumerate
+	SELECT:metodo STREAM:trasferire tutti i file di un direttorio(ricorsione iterativa) remoto i cui nomi contengono almeno un carattere alfabetico vocale e uno consonante (maiuscoli o minuscoli) dal server al client
+		metodo UDP: eliminare tutte le occorrenze di caratteri alfabetici vocali all’interno di un file di testo remoto
+-------------------------
+13_01_2021
+	RMI: metodo1: eliminare tutte le occorrenze di caratteri numerici all'interno di un file di testo
+		metodo2: ricevere la lista dei sottodirettori di primo livello di un direttorio specificato che contengono almeno 6 file di testo.
+
+	select: metodo STREAM:trasferire dal server al client tutti i file di testo di un direttorio
+		metodo UDP:contare il numero delle linee che iniziano con una lettera minuscola e contengono almeno uno specificato numero di occorrenze di un carattere indicato all’interno di tutti i file di testo presenti sul direttorio remoto
+
+-----------------------------
+08_01_2024
+	RMI:metodo 1:eliminare tutte le occorrenze di caratteri numerici all'interno di un file di testo
+		metodo2:icevere la lista dei file di testo di un direttorio i cui nomi contengono almeno uno specificato numero di occorrenze di un carattere indicato dall’utente
+	
+	select: metodo STREAM:trasferire dal server al client tutti i file binari di un direttorio dato 
+		metodo UDP: contare il numero delle linee che contengono almeno uno specificato numero di occorrenze di un carattere indicato all’interno di tutti i file di testo presenti sul direttorio remoto,
+
+--------------------------------
+10_02_2021(STRUTTURA DATI CON DATE E VALORI DI DEFAULT)
+	RMI: metodo 1:eliminare un paio di sci
+
+		metodo 2:richiedere il noleggio di un paio di sci
+
+	SELECT: metodo STREAM:download degli sci noleggiabili(CON UN VALORE SPECIFICO) di un certo modello e INVIO DELLA STRUTTURA DATI
+
+		metodo UDP:valutare il costo di un noleggio
+
+
+
+
+RPC E STREAM SOCKET
+
+12/09/2024:
+        RPC:    metodo1: listare gli studenti con i voti superiori ad una soglia
+                metodo2: eliminare uno studente in una struttura dati
+        SOCKET STREAM: definito struttura dati registro che tiene la classe Studenti e ha il compito di aggiungere Studenti e di aggiungere e modificare un dato(voto)
+
+	
+
+-------------------------------
+23/01/2019
+        RPC:metodo 1:aggiornamento di un elemento di una lista veicoli
+            metodo 2:visualizzazione di una lista di veicoli con filtro la tipologia e la categoria
+        Stream socket: metodo 1:download foto dei veicoli richiesti
+                	metodo 2: eliminare una prenotazione di una struttura dati di Prenotazioni
+
+-------------------------
+28/01/2022
+	RPC: metodo 1: conteggio delle occorrenze di una linea(frase e non parola) all’interno di un file di testo e restituzione di un intero
+		metodo 2:Lista dei file di un direttorio i cui nomi iniziano con un prefisso 
+	Stream socket: metodo 1:Eliminazione di tutte le occorrenze di una specificata parola all’interno di un file di testo
+			metodo2:Trasferimento dal server al client di tutti file di un direttorio(ricorsiva iterativa di tutti i sottodirettori) che contengono un numero
+di byte maggiore di una soglia
+------------------------
+
+08_01_2024
+	RPC:metodo 1:eliminare tutte le occorrenze di caratteri numerici all'interno di un file di testo
+		metodo2:icevere la lista dei file di testo di un direttorio i cui nomi contengono almeno uno specificato numero di occorrenze di un carattere indicato dall’utente
+	
+	STREAM SOCKET: metodo 1:trasferire dal server al client tutti i file binari di un direttorio dato 
+		metodo 2: contare il numero delle linee che contengono almeno uno specificato numero di occorrenze di un carattere indicato all’interno di tutti i file di testo presenti sul direttorio remoto,
+
+------------------------
+
+23/01/2024
+STRUTTURA DATI A MATRICE
+	RPC: metodo1: eliminare una prenotazione
+		metodo2: visualizzare prenotazioni solo di matricola ripetute
+
+	STREAM SOCKET: metodo1: trasferire file binari  che hanno il nome con una occorrenza di caratteri
+			metodo2: aggiungere un elemento alla matrice vicino
+
+

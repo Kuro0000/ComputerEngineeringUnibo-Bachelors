@@ -1,0 +1,9 @@
+- name: Reload systemd
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+
+- name: Enable and start service
+  ansible.builtin.systemd_service:
+    name: homesync
+    enabled: true
+    state: restarted

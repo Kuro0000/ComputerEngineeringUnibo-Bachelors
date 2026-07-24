@@ -1,0 +1,49 @@
+- name: Insert LDAP users
+  community.general.ldap_entry:
+    dn: uid={{ item.uid }},ou=People,dc=labammsis
+    objectClass:
+      - top
+      - posixAccount
+      - shadowAccount
+      - inetOrgPerson
+    server_uri: ldap://localhost/
+    bind_dn: cn=admin,dc=labammsis
+    bind_pw: "{{ password }}"
+    attributes:
+      givenName: "{{ item.givenName }}"
+      cn: "{{ item.cn }}"
+      sn: "{{ item.sn }}"
+      mail: "{{ item.mail }}"
+      uid: "{{ item.uid }}"
+      uidNumber: "{{ item.uidNumber }}"
+      gidNumber: "{{ item.gidNumber }}"
+      homeDirectory: "{{ item.homeDirectory }}"
+      loginShell: "{{ item.loginShell }}"
+      gecos: "{{ item.gecos }}"
+      userPassword: "{{ item.userPassword }}"
+    state: present
+  loop: "{{ users }}"
+
+- name: Insert LDAP groups
+  community.general.ldap_entry:
+    dn: cn={{ item.cn }},ou=Groups,dc=labammsis
+    objectClass:
+      - top
+      - posixGroup
+    server_uri: ldap://localhost/
+    bind_dn: cn=admin,dc=labammsis
+    bind_pw: "{{ password }}"
+    attributes:
+      cn: "{{ item.cn }}"
+      gidNumber: "{{ item.gidNumber }}"
+    state: present
+  loop: "{{ usergroups }}"
+
+- name: Set passwords for LDAP users
+  community.general.ldap_passwd:
+    dn: uid={{ item.uid }},ou=People,dc=labammsis
+    bind_dn: cn=admin,dc=labammsis
+    bind_pw: "{{ password }}"
+    passwd: "{{ item.passwd }}"
+    server_uri: ldap://localhost/
+  loop: "{{ userspassword }}"

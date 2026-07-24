@@ -1,0 +1,9 @@
+# vars/main.yml
+my_cron_job:
+  name: "job pippo"
+  minute: "*"
+  hour: "*"
+  day: "*"
+  month: "*"
+  weekday: "*"
+  job: "/usr/bin/cat /etc/network/interfaces >> /home/vagrant/pippo"

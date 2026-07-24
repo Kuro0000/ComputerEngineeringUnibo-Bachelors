@@ -1,0 +1,3 @@
+localadm ALL=(root) NOPASSWD: /usr/bin/mkdir, /usr/bin/chmod, /usr/bin/chown, /usr/bin/mv
+# tanto varrebbe mettere ALL dato che con questi comandi
+# si può prendere il controllo completo del sistema

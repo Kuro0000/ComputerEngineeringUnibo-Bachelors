@@ -1,0 +1,19 @@
+- name: "Esecuzione script al login"
+  ansible.builtin.lineinfile:
+    path: /home/vagrant/.bashrc
+    # La regex cerca se esiste già una riga che lancia quello script
+    regexp: '^[ \t]*/bin/login\.sh'
+    # La riga esatta che vogliamo inserire
+    line: '/bin/login.sh'
+    owner: vagrant
+    group: vagrant
+    mode: '0644'
+    create: true  # Crea il file se non esiste
+
+- name: "Copia lo script di sincronizzazione sul server"
+  ansible.builtin.copy:
+    src: login.sh  # Il percorso del file sulla tua macchina (nella cartella files/)
+    dest: /bin/login.sh
+    owner: vagrant       # Lo script è di proprietà di root per sicurezza
+    group: vagrant
+    mode: '0755'      # Fondamentale: deve essere eseguibile (7) per funzionare

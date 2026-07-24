@@ -1,0 +1,37 @@
+---
+- name: Configure endpoints
+  hosts: all
+  become: true
+  roles:
+   - set_proxy
+   - common
+
+- name: Client server
+  hosts: C*, S*
+  become: true
+  roles:
+   - ldap_login
+
+- name: Configure first router
+  hosts: ROU
+  become: true
+  roles:
+   - router
+   - ldap_server
+   - snmp_manager
+
+- name: Configure client
+  hosts: C*
+  become: true
+  roles:
+   - client
+   - ssh_keygen
+
+- name: Configurare server
+  hosts: S*
+  become: true
+  roles:
+   - server
+   - snmp_agent
+   - add_chron_job
+   - ssh_accesso

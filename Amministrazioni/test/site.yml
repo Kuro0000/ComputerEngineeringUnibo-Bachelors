@@ -1,0 +1,29 @@
+---
+- name: Configure endpoints
+  hosts: all
+  become: true
+  roles:
+   - set_proxy
+   - common
+
+- name: Configure first router
+  hosts: ROU
+  become: true
+  roles:
+   - router
+   - ldap_server
+   - snmp_agent
+
+- name: Client and server
+  hosts: C*
+  become: true
+  roles:
+    - ldap_login
+
+
+- name: Configure client
+  hosts: C*
+  become: true
+  roles:
+   - client
+   - snmp_manager

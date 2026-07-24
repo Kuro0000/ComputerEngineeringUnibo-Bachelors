@@ -1,0 +1,58 @@
+NUM_CLIENTS = 1
+NUM_ROUTERS_A = 1
+NUM_ROUTERS_B = 1
+NUM_SERVERS = 1
+# eventuali indirizzi MAC delle macchine virtuali
+# utili per dare IP prefissati via DHCP
+MAC_ADRESSES = {
+  "C1" => "000000000001",
+  "S1" => "000000000021",
+  "S2" => "000000000031",
+}
+# esempio C1 <--LAN1--> ROU_A <--LAN2--> ROU_B <--LAN3--> S1
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/bookworm64"
+  config.vm.provider "virtualbox" do |vb|
+    vb.linked_clone = true
+  end
+# un singolo playbook, dovrà specificare il match con gli hostname per applicare i task relativi
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "site.yml"
+  end
+  
+  (1..NUM_ROUTERS_A).each do |i|
+    config.vm.define "ROUA#{i}" do |machine|
+      machine.vm.hostname = "ROUA#{i}"
+      machine.vm.network "private_network", virtualbox__intnet: "LAN1", auto_config: false
+      machine.vm.network "private_network", virtualbox__intnet: "LAN2", auto_config: false
+    end
+  end
+  
+  (1..NUM_ROUTERS_B).each do |i|
+    config.vm.define "ROUB#{i}" do |machine|
+      machine.vm.hostname = "ROUB#{i}"
+      machine.vm.network "private_network", virtualbox__intnet: "LAN3", auto_config: false
+      machine.vm.network "private_network", virtualbox__intnet: "LAN2", auto_config: false
+    end
+  end
+  
+  (1..NUM_CLIENTS).each do |i|
+    config.vm.define "C#{i}" do |machine|
+      # hostname
+      machine.vm.hostname = "C#{i}"
+      # configurazione rete
+      machine.vm.network "private_network", virtualbox__intnet: "LAN1", auto_config: false, mac: MAC_ADRESSES["C#{i}"]
+      # altre configurazioni
+      # machine.vm.synced_folder ".", "/vagrant", disabled: true
+    end
+  end
+
+
+  (1..NUM_SERVERS).each do |i|
+    config.vm.define "S#{i}" do |machine|
+      machine.vm.hostname = "S#{i}"
+      machine.vm.network "private_network", virtualbox__intnet: "LAN3", auto_config: false, mac: MAC_ADRESSES["S#{i}"]
+    end
+  end
+end

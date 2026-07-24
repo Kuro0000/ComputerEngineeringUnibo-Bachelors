@@ -1,0 +1,33 @@
+dn: ou=People,dc=labammsis
+objectClass: organizationalunit
+ou: People
+description: system users
+
+dn: ou=Groups,dc=labammsis
+objectClass: organizationalunit
+ou: Groups
+description: system groups
+
+dn: cn=demo,ou=Groups,dc=labammsis
+objectClass: top
+objectClass: posixGroup
+cn: demo
+gidNumber: 10000
+
+dn: uid=exam,ou=People,dc=labammsis
+objectClass: top
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: inetOrgPerson
+givenName: exam
+cn: exam
+sn: exam
+mail: exam.exam@exam.it
+uid: exam
+uidNumber: 10001
+gidNumber: 10000
+homeDirectory: /home/exam
+loginShell: /bin/bash
+gecos:exam
+userPassword: {crypt}x
+

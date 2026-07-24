@@ -1,0 +1,18 @@
+[Unit]
+Description=Monitoraggio log in tempo reale
+# Avvia il servizio solo quando il sistema è pronto
+After=network.target
+
+[Service]
+#oneshot fa partire lo script una volta  e basta, se lo si usa->commentare Restart=always
+Type=oneshot
+# Percorso dello script che contiene il ciclo di lettura log
+ExecStart=/usr/local/bin/log-watcher.sh
+# Se lo script crasha o viene killato, systemd lo riavvia
+#Restart=always
+# Utente che esegue lo script (es. root per leggere i log)
+User=root
+
+[Install]
+# Indica che il servizio deve partire automaticamente al boot
+WantedBy=multi-user.target

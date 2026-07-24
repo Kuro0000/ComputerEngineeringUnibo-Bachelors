@@ -1,0 +1,37 @@
+- name: Install snmpd
+  become: true
+  ansible.builtin.apt:
+    name: snmpd
+    state: present
+    update_cache: true
+
+- name: Copy snmpd configuration
+  become: true
+  ansible.builtin.copy:
+    src: snmpd.conf
+    dest: /etc/snmp/snmpd.conf
+    owner: root
+    group: root
+    mode: '600'
+  notify:
+    - Restart Snmpd
+
+- name: Copy modular fragments to snmp.conf.d
+  become: true
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /etc/snmp/snmpd.conf.d/
+    owner: root
+    group: root
+    mode: '0755'
+  with_fileglob:
+    - "snmp_fragments/*.conf"
+  notify: Restart Snmpd
+
+- name: Allow the snmp-user to sudo command
+  become: true
+  community.general.sudoers:
+    name: allow-snmp
+    state: present
+    user: Debian-snmp
+    commands: /usr/bin/ss -lntp

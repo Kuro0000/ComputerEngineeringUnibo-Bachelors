@@ -1,0 +1,19 @@
+- name: Add contrib non-free
+  become: true
+  ansible.builtin.replace:
+    path: /etc/apt/sources.list
+    regexp: '^(deb (?!.*contrib)(?!.*non-free).*)'
+    replace: '\1 contrib non-free'
+- name: Install snmp-mibs-downloader
+  become: true
+  ansible.builtin.apt:
+    name: [snmp, snmp-mibs-downloader]
+    state: present
+    update_cache: true
+
+- name: Comment snmp.conf
+  become: true
+  ansible.builtin.replace:
+    path: /etc/snmp/snmp.conf
+    regexp: '^mibs :'
+    replace: '#mibs:'

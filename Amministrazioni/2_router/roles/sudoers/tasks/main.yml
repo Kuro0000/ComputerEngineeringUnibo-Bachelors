@@ -1,0 +1,9 @@
+---
+- name: Creazione home da in.sh
+  ansible.builtin.copy:
+    src: localadm
+    dest: /etc/sudoers.d/localadm
+    owner: root
+    group: root
+    mode: "0600"
+    validate: /usr/sbin/visudo -csf %s

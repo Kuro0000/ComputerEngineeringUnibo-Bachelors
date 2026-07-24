@@ -1,0 +1,55 @@
+---
+- name: Remove slapd if present (full purge)
+  become: true
+  ansible.builtin.apt:
+    name: slapd
+    state: absent
+    purge: true
+
+- name: Install debconf and debconf-utils
+  ansible.builtin.apt:
+    name:
+      - debconf
+      - debconf-utils
+      - python3-ldap
+      - ldap-utils
+    state: present
+    update_cache: true
+
+- name: Setup debconf for slapd
+  ansible.builtin.debconf:
+    name: slapd
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype }}"
+  loop: "{{ slapd }}"
+  notify: Restart slapd
+
+- name: Install slapd
+  ansible.builtin.apt:
+    name: slapd
+    update_cache: true
+
+- name: Insert LDAP People OU
+  community.general.ldap_entry:
+    dn: ou=People,dc=labammsis
+    objectClass: organizationalUnit
+    server_uri: ldap://localhost/
+    bind_dn: cn=admin,dc=labammsis
+    bind_pw: "{{ password }}"
+    attributes:
+      description: System Users
+      ou: People
+    state: present
+
+- name: Insert LDAP Groups OU
+  community.general.ldap_entry:
+    dn: ou=Groups,dc=labammsis
+    objectClass: organizationalUnit
+    server_uri: ldap://localhost/
+    bind_dn: cn=admin,dc=labammsis
+    bind_pw: "{{ password }}"
+    attributes:
+      description: System Groups
+      ou: Groups
+    state: present

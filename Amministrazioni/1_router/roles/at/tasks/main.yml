@@ -1,0 +1,7 @@
+- name: "Install tcpdump and at"
+  ansible.builtin.apt:
+    name:
+      - tcpdump
+      - at
+    state: present
+    force_apt_get: true

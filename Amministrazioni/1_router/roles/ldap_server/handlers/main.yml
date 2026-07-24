@@ -1,0 +1,18 @@
+- name: Restart slapd
+  become: true
+  ansible.builtin.service:
+    name: slapd
+    state: restarted
+
+- name: Import ldif files
+  become: true
+  ansible.builtin.command: >
+    ldapadd -x -c -H ldapi:///
+    -D "cn=admin,dc=labammsis"
+    -w "gennaio.marzo"
+    -f /tmp/init.ldif
+  register: ldapadd_result
+  # Considera il task fallito solo se l'errore NON è lo 68 (Already exists) e non è 0 (Successo)
+  failed_when: ldapadd_result.rc != 0 and ldapadd_result.rc != 68
+  # Segnala "changed" solo se ha effettivamente aggiunto qualcosa (se non trova "Already exists" ovunque)
+  changed_when: "'adding new entry' in ldapadd_result.stdout"

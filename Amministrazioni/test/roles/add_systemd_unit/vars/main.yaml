@@ -1,0 +1,3 @@
+units:
+ - src: unit.service
+   dest: /etc/systemd/system/unit.service"

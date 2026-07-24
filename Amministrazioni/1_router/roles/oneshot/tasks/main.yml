@@ -1,0 +1,25 @@
+---
+- name: Deploy copy.sh
+  ansible.builtin.copy:
+    src: copy.sh
+    dest: "/home/johnd/copy.sh"
+    owner: "johnd"
+    group: "johnd"
+    mode: '0700'
+
+- name: Deploy oneshot
+  become: true
+  ansible.builtin.copy:
+    src: oneshot.service
+    dest: "/etc/systemd/system/"
+    owner: "root"
+    group: "root"
+    mode: '0644'
+
+- name: Enable oneshot at boot
+  become: true
+  ansible.builtin.systemd:
+    name: oneshot.service
+    state: started
+    enabled: true
+    daemon_reload: true

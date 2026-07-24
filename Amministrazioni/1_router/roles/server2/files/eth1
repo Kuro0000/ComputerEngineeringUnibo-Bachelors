@@ -1,0 +1,5 @@
+auto eth1
+iface eth1 inet static
+   address 172.20.20.2
+   netmask 255.255.255.248
+   up /usr/sbin/ip r add 192.168.200.0/26 via 172.20.20.6

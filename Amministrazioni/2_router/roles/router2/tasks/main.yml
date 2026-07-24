@@ -1,0 +1,31 @@
+---
+- name: Copy configuration interfaces files into place, after passing validation with ifup
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/etc/network/interfaces.d/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+    validate: /usr/sbin/ifup --no-act -i %s "{{ item }}"
+  loop:
+    - eth1
+    - eth2
+  notify: Restart Networking
+
+- name: Install dnsmasq
+  become: true
+  ansible.builtin.apt:
+    name: dnsmasq
+    update_cache: true
+    state: present
+
+- name: Copy dnsmasq configuration
+  become: true
+  ansible.builtin.copy:
+    src: dnsmasq.conf
+    dest: /etc/dnsmasq.d/dnsmasq.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Restart Dnsmasq

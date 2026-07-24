@@ -1,0 +1,5 @@
+- name: Copia script di login per tutti
+  ansible.builtin.copy:
+    src: script_benvenuto.sh
+    dest: /etc/profile.d/script_benvenuto.sh
+    mode: '0755'

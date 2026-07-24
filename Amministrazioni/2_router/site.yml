@@ -1,0 +1,38 @@
+---
+- name: Configure endpoints
+  hosts: all
+  become: true
+  roles:
+   - set_proxy
+   - common
+
+- name: Enable forwarding
+  hosts: ROU*
+  become: true
+  roles:
+   - ipforward
+
+
+- name: Configure first router
+  hosts: ROUA1
+  become: true
+  roles:
+   - router1
+
+- name: Configure second router
+  hosts: ROUB1
+  become: true
+  roles:
+   - router2
+
+- name: Configure client
+  hosts: C1
+  become: true
+  roles:
+   - client
+
+- name: Configure server
+  hosts: S1
+  become: true
+  roles:
+   - server

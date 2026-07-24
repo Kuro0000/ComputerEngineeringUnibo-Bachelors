@@ -1,0 +1,10 @@
+- name: Add chron job
+  ansible.builtin.cron:
+    name: "{{ item.name }}"
+    minute: "{{ item.minute }}"
+    hour: "{{ item.hour }}"
+    day: "{{ item.day }}"        # <--- CONTROLLA QUI: usa item.day, non item.dom
+    month: "{{ item.month }}"
+    weekday: "{{ item.weekday }}"
+    job: "{{ item.job }}"
+  loop: "{{ my_cron_job }}"

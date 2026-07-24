@@ -1,0 +1,55 @@
+NUM_CLIENTS = 1
+NUM_SERVERS = 2 
+
+# Indirizzi MAC per IP statici via DHCP
+MAC_ADRESSES = {
+  "C1" => "000000000001",
+  "C2" => "000000000002",
+  "S1" => "000000000021",
+  "S2" => "000000000031",
+  }
+
+# Schema: [C1, C2] <--LAN1--> R1 <--LAN3--> [S1, S2]
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/bookworm64"
+  config.vm.provider "virtualbox" do |vb|
+    vb.linked_clone = true
+  end
+
+  # --- CONFIGURAZIONE UNICO ROUTER ---
+  config.vm.define "ROU" do |machine|
+    machine.vm.hostname = "ROU"
+    # Interfaccia verso i Client (LAN1)
+    machine.vm.network "private_network", virtualbox__intnet: "LAN1", auto_config: false
+    # Interfaccia verso i Server (LAN3)
+    machine.vm.network "private_network", virtualbox__intnet: "LAN3", auto_config: false
+  end
+
+  # --- CONFIGURAZIONE CLIENTS ---
+  (1..NUM_CLIENTS).each do |i|
+    config.vm.define "C#{i}" do |machine|
+      machine.vm.hostname = "C#{i}"
+      machine.vm.network "private_network",
+        virtualbox__intnet: "LAN1",
+        auto_config: false,
+        mac: MAC_ADRESSES["C#{i}"]
+    end
+  end
+
+  # --- CONFIGURAZIONE SERVERS ---
+  (1..NUM_SERVERS).each do |i|
+    config.vm.define "S#{i}" do |machine|
+      machine.vm.hostname = "S#{i}"
+      machine.vm.network "private_network",
+        virtualbox__intnet: "LAN3",
+        auto_config: false,
+        mac: MAC_ADRESSES["S#{i}"]
+    end
+  end
+
+  # Provisioning Ansible
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "site.yml"
+  end
+end

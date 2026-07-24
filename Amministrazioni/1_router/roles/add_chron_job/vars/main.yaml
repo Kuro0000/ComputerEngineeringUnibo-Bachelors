@@ -1,0 +1,9 @@
+# vars/main.yml
+my_cron_job:
+  - name: "job pippo"
+    minute: "*/5"
+    hour: "5-23"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    job: "/sbin/sync.sh"

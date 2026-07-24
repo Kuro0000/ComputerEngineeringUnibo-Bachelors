@@ -1,0 +1,16 @@
+[Unit]
+Description=Log Watcher Service
+After=network.target
+
+[Service]
+# Tipo simple (default): ideale per processi che restano attivi (come tail -f)
+Type=simple
+ExecStart=/usr/local/bin/tuo_script.sh
+# FONDAMENTALE: lo riavvia se crasha o viene killato
+Restart=always
+# Aspetta 5 secondi prima di riavviarlo (per evitare loop infiniti se c'è un errore grave)
+RestartSec=5
+User=root
+
+[Install]
+WantedBy=multi-user.target

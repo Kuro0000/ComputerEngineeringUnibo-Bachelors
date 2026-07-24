@@ -1,0 +1,32 @@
+---
+- name: Ensure home directory exists for user {{ ssh_keygen_ssh_user }}
+  ansible.builtin.file:
+    path: "/home/{{ ssh_keygen_ssh_user }}"
+    state: directory
+    owner: "{{ ssh_keygen_ssh_user }}"
+    group: "{{ ssh_keygen_ssh_group }}"
+    mode: '0700'
+
+- name: Ensure .ssh directory exists for user {{ ssh_keygen_ssh_user }}
+  ansible.builtin.file:
+    path: "/home/{{ ssh_keygen_ssh_user }}/.ssh"
+    state: directory
+    owner: "{{ ssh_keygen_ssh_user }}"
+    group: "{{ ssh_keygen_ssh_group }}"
+    mode: '0700'
+
+- name: Copy private key for user {{ ssh_keygen_ssh_user }}
+  ansible.builtin.copy:
+    src: id_rsa
+    dest: "/home/{{ ssh_keygen_ssh_user }}/.ssh/id_rsa"
+    mode: '0600'
+    owner: "{{ ssh_keygen_ssh_user }}"
+    group: "{{ ssh_keygen_ssh_group }}"
+
+- name: Copy public key for user {{ ssh_keygen_ssh_user }}
+  ansible.builtin.copy:
+    src: id_rsa.pub
+    dest: "/home/{{ ssh_keygen_ssh_user }}/.ssh/id_rsa.pub"
+    mode: '0644'
+    owner: "{{ ssh_keygen_ssh_user }}"
+    group: "{{ ssh_keygen_ssh_group }}"

@@ -1,0 +1,10 @@
+- name: Add chron job
+  become: true
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: /etc/systemd/system"{{ item.dest }}"
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    "{{ units }}"
